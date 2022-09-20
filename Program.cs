@@ -2,7 +2,7 @@
 using SortAlgorithms.Utils;
 using System.Security.Cryptography;
 
-int maxArrayLength = (int)1e5;
+int maxArrayLength = (int)1e4;
 int[] array = new int[maxArrayLength];
 
 for (int i = 0; i < maxArrayLength; i++)
@@ -43,6 +43,21 @@ quickSort.Sort(distinctValues);
 Console.WriteLine($"Quicksort function completed in ${_measure.GetElapsedTime()}");
 
 _measure.Stop();
+
+
+HeapSort<int> heapSort = new();
+array = new int[maxArrayLength];
+
+for (int i = 0; i < maxArrayLength; i++)
+{
+    array[i] = RandomNumberGenerator.GetInt32(1, maxArrayLength);
+}
+distinctValues = array.Distinct().ToArray();
+for (int j = 0; j < distinctValues.Length; j++)
+{
+    heapSort.Insert(distinctValues[j]);
+}
+
 
 Console.ReadLine();
 
