@@ -1,34 +1,18 @@
-﻿namespace SortAlgorithms
+﻿using SortAlgorithms.Utils;
+
+namespace SortAlgorithms
 {
-    internal class QuickSort<T> : IComparer<T>
+    internal class QuickSort
     {
-        private Comparer<T> _comparer;
-        public int Compare(T? x, T? y)
-        {
-            if (x == null)
-                return 0;
-            if (y == null)
-                return 0;
-
-            if (int.Parse(x.ToString()) > int.Parse(y.ToString()))
-                return 1;
-            if (int.Parse(x.ToString()) < int.Parse(y.ToString()))
-                return -1;
-
-            return 0;
-        }
-
-        public void Sort(T[] items)
+        public void Sort<T>(T[] items) where T: IComparable
         {
             if (items.Count() > 0 && items[0].GetType() != typeof(int))
                 throw new NotImplementedException($"type {typeof(T)} has not yet been implemented");
 
-            _comparer = Comparer<T>.Create(Compare);
-
             Sort(items, 0, items.Length -1);
         }
 
-        private T[] Sort(T[] items, int left, int right)
+        private T[] Sort<T>(T[] items, int left, int right) where T : IComparable
         {
             if (left < right)
             {
@@ -41,7 +25,7 @@
             return items;
         }
 
-        private int Partition(T[] items, int left, int right)
+        private int Partition<T>(T[] items, int left, int right) where T : IComparable
         {
             var pivot = items[left];
             var i = left;
@@ -49,11 +33,11 @@
 
             while(i<=j)
             {
-                while (_comparer.Compare(items[i], pivot) < 0)
+                while (items[i].CompareTo(pivot) < 0)
                 {
                     i++;
                 }
-                while (_comparer.Compare(items[j], pivot) > 0)
+                while (items[j].CompareTo(pivot) > 0)
                 {
                     j--;
                 }
@@ -63,7 +47,7 @@
             return j;
         }
 
-        private void Swap(T[] items, int first, int second)
+        private void Swap<T>(T[] items, int first, int second)
         {
             var tmp = items[first];
             items[first] = items[second];
