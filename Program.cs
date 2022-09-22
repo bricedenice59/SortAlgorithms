@@ -2,7 +2,7 @@
 using SortAlgorithms.Utils;
 using System.Security.Cryptography;
 
-int maxArrayLength = (int)10e1;
+int maxArrayLength = (int)1e4;
 int[] array = new int[maxArrayLength];
 
 for (int i = 0; i < maxArrayLength; i++)
@@ -20,7 +20,7 @@ Console.WriteLine("Sorting.... with bubble sort algorithm");
 _measure.Init();
 _measure.Start();
 
-bubbleSort.Sort(distinctValues);
+//bubbleSort.Sort(distinctValues);
 
 _measure.Stop();
 
@@ -40,10 +40,10 @@ _measure.Init();
 _measure.Start();
 
 quickSort.Sort(distinctValues);
-Console.WriteLine($"Quicksort function completed in ${_measure.GetElapsedTime()}");
 
 _measure.Stop();
 
+Console.WriteLine($"Quicksort function completed in ${_measure.GetElapsedTime()}");
 
 HeapSort<int> heapSort = new();
 array = new int[maxArrayLength];
@@ -59,7 +59,9 @@ for (int j = 0; j < distinctValues.Length; j++)
 }
 
 var height = heapSort.GetHeapHeight(distinctValues);
+Console.WriteLine($"Heap has a height of  ${height}");
 
+var root = heapSort.Delete();
 
 Console.ReadLine();
 

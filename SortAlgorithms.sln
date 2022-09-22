@@ -13,14 +13,14 @@ Global
 		Release|ARM64 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|ARM64.Build.0 = Debug|ARM64
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Release|ARM64.ActiveCfg = Release|ARM64
 		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Release|ARM64.Build.0 = Release|ARM64
+		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|Any CPU.ActiveCfg = Debug|ARM64
+		{6A24F038-50BF-4BAC-96E4-BD55D85E5058}.Debug|Any CPU.Build.0 = Debug|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
