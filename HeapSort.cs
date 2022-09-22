@@ -64,6 +64,13 @@ namespace SortAlgorithms
             return root;
         }
 
+        /// <summary>
+        /// Swap values from the list of items without introducing another temporary variable, so that I keep O(1) storage complexity
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="element"></param>
+        /// <param name="currentIndex"></param>
+        /// <param name="newIndex"></param>
         private void Swap(List<T> items, T element, int currentIndex, int newIndex)
         {
             items[currentIndex] = _items.ElementAt(newIndex);
@@ -131,8 +138,6 @@ namespace SortAlgorithms
             {
                 //swap child with its parent
                 Swap(_items, currentElement, currentItemIndex, parentIndex);
-                // _items[currentItemIndex] = _items.ElementAt(parentIndex);
-                // _items[parentIndex] = currentElement;
 
                 //reset indexes
                 currentItemIndex = parentIndex;
