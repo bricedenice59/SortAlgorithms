@@ -8,6 +8,8 @@ namespace SortAlgorithms
     internal class HeapSort<T> where T : IComparable<T>
     {
         private readonly List<T> _items;
+
+        public List<T> Items => _items;
         public HeapSort()
         {
             _items = new List<T>();
@@ -16,6 +18,19 @@ namespace SortAlgorithms
         //public void Sort(List<T> items) 
         //{
         //}
+
+        public int GetHeapHeight(IEnumerable<T> items)
+        {
+            var nbNodes = items.Count();
+            var height = 0;
+
+            //heap height = [2^(h+1) -1]
+            while (((int)Math.Pow(2, height +1) - 1) < nbNodes)
+            {
+                height++;
+            }
+            return height;
+        }
 
         public void Insert(T item)
         {

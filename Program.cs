@@ -2,7 +2,7 @@
 using SortAlgorithms.Utils;
 using System.Security.Cryptography;
 
-int maxArrayLength = (int)1e4;
+int maxArrayLength = (int)10e1;
 int[] array = new int[maxArrayLength];
 
 for (int i = 0; i < maxArrayLength; i++)
@@ -13,9 +13,9 @@ var distinctValues = array.Distinct().ToArray();
 
 Console.WriteLine($"Try sorting array of {maxArrayLength} integers...");
 
-BubbleSort bubbleSort = new ();
+BubbleSort bubbleSort = new();
 
-MeasureTimePerformance _measure = new ();
+MeasureTimePerformance _measure = new();
 Console.WriteLine("Sorting.... with bubble sort algorithm");
 _measure.Init();
 _measure.Start();
@@ -57,6 +57,8 @@ for (int j = 0; j < distinctValues.Length; j++)
 {
     heapSort.Insert(distinctValues[j]);
 }
+
+var height = heapSort.GetHeapHeight(distinctValues);
 
 
 Console.ReadLine();
