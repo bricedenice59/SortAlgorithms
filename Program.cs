@@ -45,6 +45,7 @@ _measure.Stop();
 
 Console.WriteLine($"Quicksort function completed in ${_measure.GetElapsedTime()}");
 
+Console.WriteLine("Sorting.... with heapsort algorithm");
 HeapSort<int> heapSort = new();
 array = new int[maxArrayLength];
 
@@ -68,5 +69,6 @@ var sorted = heapSort.Items;
 var height = heapSort.GetHeapHeight(distinctValues);
 Console.WriteLine($"Heap has a height of {height}");
 
+Console.WriteLine($"Press a key to exit.");
 Console.ReadLine();
 
