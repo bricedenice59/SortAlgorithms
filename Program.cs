@@ -1,15 +1,15 @@
-﻿using SortAlgorithms;
+﻿using System.ComponentModel;
+using SortAlgorithms;
 using SortAlgorithms.Utils;
 using System.Security.Cryptography;
 
-int maxArrayLength = (int)1e4;
+int maxArrayLength = (int)10e4;
 int[] array = new int[maxArrayLength];
 
 for (int i = 0; i < maxArrayLength; i++)
 {
     array[i] = RandomNumberGenerator.GetInt32(1, maxArrayLength);
 }
-var distinctValues = array.Distinct().ToArray();
 
 Console.WriteLine($"Try sorting array of {maxArrayLength} integers...");
 
@@ -20,7 +20,7 @@ Console.WriteLine("Sorting.... with bubble sort algorithm");
 _measure.Init();
 _measure.Start();
 
-//bubbleSort.Sort(distinctValues);
+bubbleSort.Sort(array.Distinct().ToArray());
 
 _measure.Stop();
 
@@ -33,7 +33,7 @@ for (int i = 0; i < maxArrayLength; i++)
 {
     array[i] = RandomNumberGenerator.GetInt32(1, maxArrayLength);
 }
-distinctValues = array.Distinct().ToArray();
+var distinctValues = array.Distinct().ToArray();
 QuickSort quickSort = new();
 
 _measure.Init();
@@ -52,16 +52,21 @@ for (int i = 0; i < maxArrayLength; i++)
 {
     array[i] = RandomNumberGenerator.GetInt32(1, maxArrayLength);
 }
-distinctValues = array.Distinct().ToArray();
-for (int j = 0; j < distinctValues.Length; j++)
-{
-    heapSort.Insert(distinctValues[j]);
-}
+var distinctValuesHeapSortInput = array.Distinct();
+
+_measure.Init();
+_measure.Start();
+
+heapSort.Sort(distinctValuesHeapSortInput);
+
+_measure.Stop();
+
+Console.WriteLine($"Heapsort function completed in ${_measure.GetElapsedTime()}");
+
+var sorted = heapSort.Items;
 
 var height = heapSort.GetHeapHeight(distinctValues);
-Console.WriteLine($"Heap has a height of  ${height}");
-
-var root = heapSort.Delete();
+Console.WriteLine($"Heap has a height of {height}");
 
 Console.ReadLine();
 

@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.ComponentModel;
+using System.Xml.Linq;
 
 namespace SortAlgorithms
 {
@@ -15,9 +16,29 @@ namespace SortAlgorithms
             _items = new List<T>();
         }
 
-        //public void Sort(List<T> items) 
-        //{
-        //}
+        public void Sort(IEnumerable<T> items)
+        {
+            if (!items.Any())
+                throw new Exception("List of items is empty!");
+
+            foreach (var item in items)
+            {
+                Insert(item);
+            }
+
+            int deletedElements = 0;
+            while (deletedElements <= _items.Count -1)
+            {
+                T root = _items[0];
+                var indexItemToRemove = _items.Count - 1 - deletedElements;
+
+                _items[0] = _items[indexItemToRemove];
+                _items[indexItemToRemove] = root;
+
+                deletedElements++;
+                SinkDown(_items.Count - deletedElements);
+            }
+        }
 
         public int GetHeapHeight(IEnumerable<T> items)
         {
@@ -32,7 +53,7 @@ namespace SortAlgorithms
             return height;
         }
 
-        public void Insert(T item)
+        private void Insert(T item)
         {
             if (_items.Count == 0)
             {
@@ -45,26 +66,6 @@ namespace SortAlgorithms
         }
 
         /// <summary>
-        /// Delete the root item from the heap
-        /// </summary>
-        /// <returns>Returns the root element deleted</returns>
-        /// <exception cref="Exception"></exception>
-        public T Delete()
-        {
-            if (_items.Count == 0)
-                throw new Exception("List of items is empty!");
-
-            T root = _items[0];
-
-            _items[0] = _items[_items.Count -1];
-            _items.RemoveAt(_items.Count -1);
-
-            Heapify();
-
-            return root;
-        }
-
-        /// <summary>
         /// Swap values from the list of items without introducing another temporary variable, so that I keep O(1) storage complexity
         /// </summary>
         /// <param name="items"></param>
@@ -73,7 +74,7 @@ namespace SortAlgorithms
         /// <param name="newIndex"></param>
         private void Swap(List<T> items, T element, int currentIndex, int newIndex)
         {
-            items[currentIndex] = _items.ElementAt(newIndex);
+            items[currentIndex] = _items[newIndex];
             items[newIndex] = element;
         }
 
@@ -81,7 +82,7 @@ namespace SortAlgorithms
         /// That function sinks a value down until the heap is rebuild.
         /// Conditions for the heap to be rebuilt and to be valid are: the parent value must always be greater than its children and the final built tree is a complete tree)
         /// </summary>
-        private void Heapify()
+        private void SinkDown(int maxIndex)
         {
             int currentIndex = 0;
             int swapIndex = -1;
@@ -95,7 +96,7 @@ namespace SortAlgorithms
                 var rightChildIndex= (2 * currentIndex) + 2;
 
                 T leftChildValueAtIndex = default;
-                if (leftChildIndex < _items.Count)
+                if (leftChildIndex < maxIndex)
                 {
                     // Compare the node to bubble down with left child, if > then a swap is required
                     leftChildValueAtIndex = _items[leftChildIndex];
@@ -106,7 +107,7 @@ namespace SortAlgorithms
                     }
                 }
                 
-                if (rightChildIndex < _items.Count)
+                if (rightChildIndex < maxIndex)
                 {
                     //here the condition is slightly harder to understand as a swap may already be required from previous condition
                     //but the value from the right node may be > than the value of the left node, so we must be careful what leaf index we need to swap the current value with
@@ -134,7 +135,7 @@ namespace SortAlgorithms
             //explanations here above 
             int parentIndex = (currentItemIndex - 1) / 2;
 
-            while (parentIndex >= 0 && _items.ElementAt(currentItemIndex).CompareTo(_items.ElementAt(parentIndex)) > 0)
+            while (parentIndex >= 0 && currentElement.CompareTo(_items[parentIndex]) > 0)
             {
                 //swap child with its parent
                 Swap(_items, currentElement, currentItemIndex, parentIndex);
