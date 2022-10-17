@@ -39,6 +39,26 @@ namespace SortAlgorithms
                 SinkDown(_items.Count - deletedElements);
             }
         }
+        
+        public void SortWithHeapify(IEnumerable<T> items)
+        {
+            var itemList = items.ToList();
+            if (!itemList.Any())
+                throw new Exception("List of items is empty!");
+     
+            var itemsCount = itemList.Count;
+            
+            for (var i = (itemsCount / 2) - 1; i >= 0; i--)
+            {
+                Heapify(itemList, itemsCount, i);
+            }
+
+            for (var i = itemsCount - 1; i >= 0; i--)
+            {
+                Swap(itemList, itemList[0], 0, i);
+                Heapify(itemList, i, 0);
+            }
+        }
 
         public int GetHeapHeight(IEnumerable<T> items)
         {
@@ -125,6 +145,34 @@ namespace SortAlgorithms
                 
                 Swap(_items, valueAtCurrentIndex, currentIndex, swapIndex);
                 currentIndex = swapIndex;
+            }
+        }
+        
+        private void Heapify(List<T> items, int size, int maxIndex)
+        {
+            var largestIndex = maxIndex;
+            var leftChildIndex = (2 * maxIndex) +1;
+            var rightChildIndex= (2 * maxIndex) + 2;
+            
+            var rightChildValueAtIndex = items[rightChildIndex];
+            var leftChildValueAtIndex = items[leftChildIndex];
+            var largestItemValueAtIndex = items[largestIndex];
+            
+            if (leftChildIndex < size && leftChildValueAtIndex.CompareTo(largestItemValueAtIndex) >0)
+            {
+                largestIndex = leftChildIndex;
+            }
+
+            if (rightChildIndex < size && rightChildValueAtIndex.CompareTo(largestItemValueAtIndex) >0)
+            {
+                largestIndex = rightChildIndex;
+            }
+
+            //largest must not be the root
+            if (largestIndex != maxIndex)
+            {
+                Swap(items, largestItemValueAtIndex, largestIndex, maxIndex);
+                Heapify(items, size, largestIndex);
             }
         }
 
